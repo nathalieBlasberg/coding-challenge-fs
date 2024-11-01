@@ -1,1 +1,10 @@
+# compiled output
+dist
+.DS_Store
+
+# dependencies
 node_modules
+
+
+# local dev files
+.nx
