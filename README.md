@@ -1,47 +1,82 @@
-# Coding Challenge [FullStack] @ Memberspot
+# CodingChallenge
 
-## Incentive
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-This task will cover a few core concepts that you will encounter when working on a TypeScript project at Memberspot.
+✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
 
-## Challenge
+[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/nest?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
-Write a small application that fetches data from an API (we recommend [this one](https://www.swapi.tech/documentation)) and displays it in a paginated list.
+## Finish your CI setup
 
-### Requirements
+[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/Q70CbPyEyy)
 
-1. Display a list of data with at least 4 fields.
-   1. The list should include at least 1 aggregated value.
-   2. For the [example API](https://www.swapi.tech/documentation), display a person's _name_, _birth_year_, _homeworld_, and the homeworld's _terrain_.
-2. Implement an input above the list to **case insensitively** filter the data.
-3. The list should be paginated, with a page size of 10. (_Lazy loading_ is preferred over traditional pagination).
-4. The repository should be a [nx](https://nx.dev/getting-started/intro?utm_medium=website&utm_campaign=homepage_links&utm_content=cta_hero_get_started#try-nx-yourself) monorepo
-   1. It should have a frontend application called `frontend`
-   2. It should have a backend application called `server`
-   3. A Node library that contains models and dtos that are shared between the two applications
-   4. The framework that should be used for models, dtos and validation should be [zod](https://www.npmjs.com/package/zod)
-5. Have some fun and be creative!
 
-### Notes and Hints
+## Run tasks
 
-0. You are free to choose any technology you want, but...
-1. Our company has a decided tech stack:
-   1. Angular for client-side apps.
-   2. NestJS for server-side apps.
-   3. Tailwind CSS.
-2. Use an API.
-   1. If it is public, try to **cache** your data and make **as few requests** as possible.
-   2. Feel free to build your own.
-3. If you want to mock a database, use a JSON file and load it into memory.
-4. Please use `strict` mode in your tsconfig.
+To run the dev server for your app, use:
 
-### Submitting
+```sh
+npx nx serve backend
+```
 
-1. Fork this repo and send us your solutions.
-2. Notify Memberspot.
+To create a production bundle:
 
-## Alternatives
+```sh
+npx nx build backend
+```
 
-If you do not have time for a take-home assignment, let us know! In this case, we would try to implement parts of it live in a technical interview.
+To see all available targets to run for a project, run:
 
-If you have a project to which you contribute regularly, we can also discuss that. We are interested in your work.
+```sh
+npx nx show project backend
+```
+
+These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+
+[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Add new projects
+
+While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+
+Use the plugin's generator to create new projects.
+
+To generate a new application, use:
+
+```sh
+npx nx g @nx/nest:app demo
+```
+
+To generate a new library, use:
+
+```sh
+npx nx g @nx/node:lib mylib
+```
+
+You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+
+[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+
+[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Install Nx Console
+
+Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+
+[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Useful links
+
+Learn more:
+
+- [Learn more about this workspace setup](https://nx.dev/nx-api/nest?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+And join the Nx community:
+- [Discord](https://go.nx.dev/community)
+- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
+- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
+- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
