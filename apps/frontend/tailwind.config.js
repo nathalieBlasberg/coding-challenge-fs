@@ -10,8 +10,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        black: "#000",
-        white: "#fff",
         "star-wars-grey": {
           1: "#1D1E1F",
           2: "#B5B7B7",
