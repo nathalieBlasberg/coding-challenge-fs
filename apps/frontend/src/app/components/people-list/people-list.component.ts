@@ -4,11 +4,12 @@ import { StarWarsApiService } from "../../services/star-wars-api.service";
 import { take, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { PersonCardComponent } from "../person-card/person-card.component";
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: "app-people-list",
   standalone: true,
-  imports: [CommonModule, PersonCardComponent],
+  imports: [CommonModule, PersonCardComponent, HeaderComponent],
   providers: [HttpClient],
   templateUrl: "./people-list.component.html",
   styleUrl: "./people-list.component.css",

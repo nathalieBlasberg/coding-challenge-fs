@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
   imports: [CommonModule],
   selector: "app-person-card",
   templateUrl: "./person-card.component.html",
-  styleUrl: "./person-card.component.css",
+  styleUrl: "./person-card.component.scss",
   providers: [StarWarsApiService],
 })
 export class PersonCardComponent implements OnInit {
@@ -24,7 +24,6 @@ export class PersonCardComponent implements OnInit {
       .getPerson(this.personData["url"])
       .pipe(
         take(1),
-        tap((data) => console.log(data)),
         switchMap((data) => {
           this.person = data.result;
           return this.starWarsService.getPlanet(

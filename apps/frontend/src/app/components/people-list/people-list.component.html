@@ -1,4 +1,6 @@
-
-<div *ngFor="let person of people">
-    <app-person-card [personData]="person"></app-person-card>
+<app-header></app-header>
+<div class="grid grid-cols-3 gap-4 mx-60 mt-5">
+    <div *ngFor="let person of people">
+        <app-person-card [personData]="person"></app-person-card>
+    </div>
 </div>

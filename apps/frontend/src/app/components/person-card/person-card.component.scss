@@ -1,0 +1,58 @@
+.decal-contain {
+  display: block;
+  top: unset;
+  left: unset;
+  position: relative;
+  bottom: 16px;
+  width: 32px;
+}
+
+.decal {
+  &:before {
+    @apply w-6 absolute;
+    content: "";
+    border-radius: 2px;
+    border-top: 2px solid #5a5c5d;
+    border-bottom: 2px solid #5a5c5d;
+    box-shadow: none;
+    transition: box-shadow 0.3s ease;
+  }
+
+  &:after {
+    left: 28px;
+    position: absolute;
+    width: 4px;
+    content: "";
+    border-radius: 2px;
+    border-top: 2px solid #5a5c5d;
+    border-bottom: 2px solid #5a5c5d;
+    box-shadow: none;
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+.notch-contain {
+  background-color: transparent;
+  position: absolute;
+  bottom: -14px;
+  height: 14px;
+  left: 0;
+  width: 100%;
+  display: block;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+
+  &:before {
+    bottom: 0;
+    top: auto;
+    border-top: 14px solid #1d1e1f;
+  }
+
+  &:after {
+    right: 0;
+    border-left: 14px solid transparent;
+    width: 10%;
+  }
+}

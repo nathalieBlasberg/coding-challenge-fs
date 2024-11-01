@@ -1,3 +1,17 @@
-<div *ngIf="person && person.properties">
-    {{ person.properties. name }}
-</div>
+<a 
+    *ngIf="person && person.properties && planet && planet.properties"
+    href="#" 
+    class="block max-w-sm p-6 bg-star-wars-grey-1 py-8 px-3 text-star-wars-grey-2">
+    <div class="decal-contain">
+        <div class="decal"></div>
+    </div>
+
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ person.properties.name }}</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">{{ person.properties.birth_year }}</p>
+    <p class="font-normal text-gray-700 dark:text-gray-400">{{ planet.properties.name }}</p>
+    <p class="font-normal text-gray-700 dark:text-gray-400">{{ planet.properties.terrain }}</p>
+
+    <div class="notch-contain"></div>
+</a>
+
+    
