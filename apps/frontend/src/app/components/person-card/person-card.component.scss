@@ -1,8 +1,23 @@
+.rectangle {
+  @apply block max-w-sm bg-star-wars-grey-1 relative;
+  height: 40px;
+  border-radius: 4px;
+
+  &:after {
+    @apply block max-w-sm bg-black translate-x-1/2 block absolute bottom-0;
+    content: "";
+    left: 50%;
+    width: 100px;
+    height: 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+}
+
 .decal-contain {
-  display: block;
+  @apply block relative;
   top: unset;
   left: unset;
-  position: relative;
   bottom: 16px;
   width: 32px;
 }
@@ -14,8 +29,6 @@
     border-radius: 2px;
     border-top: 2px solid #5a5c5d;
     border-bottom: 2px solid #5a5c5d;
-    box-shadow: none;
-    transition: box-shadow 0.3s ease;
   }
 
   &:after {
@@ -26,7 +39,5 @@
     border-radius: 2px;
     border-top: 2px solid #5a5c5d;
     border-bottom: 2px solid #5a5c5d;
-    box-shadow: none;
-    transition: box-shadow 0.3s ease;
   }
 }

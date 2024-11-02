@@ -20,21 +20,33 @@ export class PersonCardComponent implements OnInit {
   constructor(private starWarsService: StarWarsApiService) {}
 
   public ngOnInit(): void {
+    console.log(this.personData);
     this.starWarsService
       .getPerson(this.personData["uid"])
       .pipe(
         take(1),
-        switchMap((data) => this.getPersonData(data)),
-        tap((data: any) => (this.planet = data.result))
+        switchMap((data) => {
+          this.setPersonData(data);
+          return this.getPlanetData();
+        }),
+        tap((data: any) => this.setPlanetData(data))
       )
       .subscribe();
   }
 
-  public getPersonData(data: any): Observable<any> {
+  public setPersonData(data: any): void {
+    console.log(data);
     this.person = data.result;
-    const planet = this.person.properties.homeworld;
-    const matches = planet.match(/\d+$/);
+  }
+
+  public getPlanetData(): Observable<any> {
+    const planetUrl = this.person.properties.homeworld;
+    const matches = planetUrl.match(/\d+$/);
 
     return this.starWarsService.getPlanet(matches[0]);
+  }
+
+  public setPlanetData(data: any): void {
+    this.planet = data.result;
   }
 }
