@@ -7,17 +7,17 @@ import { CacheInterceptor } from "@nestjs/cache-manager";
 export class StarWarsController {
   constructor(private readonly starWarsService: StarWarsService) {}
 
-  @Get("people")
-  getPeople() {
-    return this.starWarsService.getPeople();
+  @Get("people/:page")
+  getPeople(@Param("page") page: number) {
+    return this.starWarsService.getPeople(page);
   }
 
-  @Get("people/:id")
+  @Get("person/:id")
   getPerson(@Param("id") id: string) {
     return this.starWarsService.getPerson(id);
   }
 
-  @Get("planets/:id")
+  @Get("planet/:id")
   getPlanet(@Param("id") id: string) {
     return this.starWarsService.getPlanet(id);
   }

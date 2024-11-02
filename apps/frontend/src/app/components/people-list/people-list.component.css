@@ -1,0 +1,7 @@
+.button-absolute {
+  @apply bg-white hover:bg-gray-400 text-black font-bold py-2 px-4 rounded absolute bottom-1/2;
+
+  &:disabled {
+    @apply text-gray-500 cursor-default bg-white;
+  }
+}

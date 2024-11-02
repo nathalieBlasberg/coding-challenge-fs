@@ -141,8 +141,8 @@ let StarWarsController = class StarWarsController {
     constructor(starWarsService) {
         this.starWarsService = starWarsService;
     }
-    getPeople() {
-        return this.starWarsService.getPeople();
+    getPeople(page) {
+        return this.starWarsService.getPeople(page);
     }
     getPerson(id) {
         return this.starWarsService.getPerson(id);
@@ -153,20 +153,21 @@ let StarWarsController = class StarWarsController {
 };
 exports.StarWarsController = StarWarsController;
 tslib_1.__decorate([
-    (0, common_1.Get)("people"),
+    (0, common_1.Get)("people/:page"),
+    tslib_1.__param(0, (0, common_1.Param)("page")),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:paramtypes", [Number]),
     tslib_1.__metadata("design:returntype", void 0)
 ], StarWarsController.prototype, "getPeople", null);
 tslib_1.__decorate([
-    (0, common_1.Get)("people/:id"),
+    (0, common_1.Get)("person/:id"),
     tslib_1.__param(0, (0, common_1.Param)("id")),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", void 0)
 ], StarWarsController.prototype, "getPerson", null);
 tslib_1.__decorate([
-    (0, common_1.Get)("planets/:id"),
+    (0, common_1.Get)("planet/:id"),
     tslib_1.__param(0, (0, common_1.Param)("id")),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [String]),
@@ -195,12 +196,17 @@ let StarWarsService = class StarWarsService {
     constructor(httpService) {
         this.httpService = httpService;
         this.baseUrl = "https://www.swapi.tech/api";
+        this.limit = 10;
+        this.l = "https://www.swapi.tech/api/people?page=2&limit=10";
     }
     getData() {
         return { message: "Hello API" };
     }
-    async getPeople() {
-        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/people`).pipe((0, rxjs_1.take)(1)));
+    async getPeople(page) {
+        const pageQuery = page > 1 ? `?page=${page}&limit=${this.limit}` : "";
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService
+            .get(`${this.baseUrl}/people${pageQuery}`)
+            .pipe((0, rxjs_1.take)(1)));
         return data;
     }
     async getPerson(id) {
