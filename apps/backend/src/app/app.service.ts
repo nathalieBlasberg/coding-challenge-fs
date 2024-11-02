@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpService } from "@nestjs/axios";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class AppService {
+  constructor() {}
+
   getData(): { message: string } {
-    return { message: 'Hello API' };
+    return { message: "Hello API" };
   }
 }

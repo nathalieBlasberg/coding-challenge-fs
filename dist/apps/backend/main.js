@@ -22,16 +22,33 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const app_controller_1 = __webpack_require__(5);
-const app_service_1 = __webpack_require__(6);
+const cache_manager_1 = __webpack_require__(5);
+const app_controller_1 = __webpack_require__(6);
+const app_service_1 = __webpack_require__(7);
+const axios_1 = __webpack_require__(8);
+const star_wars_controller_1 = __webpack_require__(9);
+const star_wars_service_1 = __webpack_require__(10);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        imports: [
+            cache_manager_1.CacheModule.registerAsync({
+                isGlobal: true,
+                useFactory: () => ({
+                    ttl: 5,
+                }),
+            }),
+            axios_1.HttpModule.registerAsync({
+                useFactory: () => ({
+                    timeout: 5000,
+                    maxRedirects: 5,
+                }),
+            }),
+        ],
+        controllers: [app_controller_1.AppController, star_wars_controller_1.StarWarsController],
+        providers: [app_service_1.AppService, star_wars_service_1.StarWarsService],
     })
 ], AppModule);
 
@@ -44,6 +61,12 @@ module.exports = require("tslib");
 
 /***/ }),
 /* 5 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/cache-manager");
+
+/***/ }),
+/* 6 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -52,7 +75,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const app_service_1 = __webpack_require__(6);
+const app_service_1 = __webpack_require__(7);
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -75,7 +98,7 @@ exports.AppController = AppController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -84,15 +107,123 @@ exports.AppService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 let AppService = class AppService {
+    constructor() { }
     getData() {
-        return { message: 'Hello API' };
+        return { message: "Hello API" };
     }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = tslib_1.__decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [])
 ], AppService);
 
+
+/***/ }),
+/* 8 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/axios");
+
+/***/ }),
+/* 9 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StarWarsController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const star_wars_service_1 = __webpack_require__(10);
+const cache_manager_1 = __webpack_require__(5);
+let StarWarsController = class StarWarsController {
+    constructor(starWarsService) {
+        this.starWarsService = starWarsService;
+    }
+    getPeople() {
+        return this.starWarsService.getPeople();
+    }
+    getPerson(id) {
+        return this.starWarsService.getPerson(id);
+    }
+    getPlanet(id) {
+        return this.starWarsService.getPlanet(id);
+    }
+};
+exports.StarWarsController = StarWarsController;
+tslib_1.__decorate([
+    (0, common_1.Get)("people"),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], StarWarsController.prototype, "getPeople", null);
+tslib_1.__decorate([
+    (0, common_1.Get)("people/:id"),
+    tslib_1.__param(0, (0, common_1.Param)("id")),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", void 0)
+], StarWarsController.prototype, "getPerson", null);
+tslib_1.__decorate([
+    (0, common_1.Get)("planets/:id"),
+    tslib_1.__param(0, (0, common_1.Param)("id")),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", void 0)
+], StarWarsController.prototype, "getPlanet", null);
+exports.StarWarsController = StarWarsController = tslib_1.__decorate([
+    (0, common_1.UseInterceptors)(cache_manager_1.CacheInterceptor),
+    (0, common_1.Controller)("star-wars"),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof star_wars_service_1.StarWarsService !== "undefined" && star_wars_service_1.StarWarsService) === "function" ? _a : Object])
+], StarWarsController);
+
+
+/***/ }),
+/* 10 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StarWarsService = void 0;
+const tslib_1 = __webpack_require__(4);
+const axios_1 = __webpack_require__(8);
+const common_1 = __webpack_require__(1);
+const rxjs_1 = __webpack_require__(11);
+let StarWarsService = class StarWarsService {
+    constructor(httpService) {
+        this.httpService = httpService;
+        this.baseUrl = "https://www.swapi.tech/api";
+    }
+    getData() {
+        return { message: "Hello API" };
+    }
+    async getPeople() {
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/people`).pipe((0, rxjs_1.take)(1)));
+        return data;
+    }
+    async getPerson(id) {
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/people/${id}`).pipe((0, rxjs_1.take)(1)));
+        return data;
+    }
+    async getPlanet(id) {
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/planets/${id}`).pipe((0, rxjs_1.take)(1)));
+        return data;
+    }
+};
+exports.StarWarsService = StarWarsService;
+exports.StarWarsService = StarWarsService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof axios_1.HttpService !== "undefined" && axios_1.HttpService) === "function" ? _a : Object])
+], StarWarsService);
+
+
+/***/ }),
+/* 11 */
+/***/ ((module) => {
+
+module.exports = require("rxjs");
 
 /***/ })
 /******/ 	]);
@@ -137,7 +268,7 @@ const core_1 = __webpack_require__(2);
 const app_module_1 = __webpack_require__(3);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    const globalPrefix = 'api';
+    const globalPrefix = "api";
     app.setGlobalPrefix(globalPrefix);
     const port = process.env.PORT || 3000;
     await app.listen(port);

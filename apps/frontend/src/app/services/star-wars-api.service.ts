@@ -7,17 +7,18 @@ import { Observable } from "rxjs";
 })
 export class StarWarsApiService {
   private readonly http = inject(HttpClient);
-  private BASE_URL = "https://www.swapi.tech/api";
+  private baseUrl = "/api/star-wars";
 
   public getPeople(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.BASE_URL}/people/`);
+    return this.http.get<any[]>(`${this.baseUrl}/people`);
   }
 
-  public getPerson(url: string): Observable<any> {
-    return this.http.get<any>(url);
+  public getPerson(id: string): Observable<any> {
+    console.log(id);
+    return this.http.get<any>(`${this.baseUrl}/people/${id}`);
   }
 
-  public getPlanet(url: string): Observable<any> {
-    return this.http.get<any>(url);
+  public getPlanet(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/planets/${id}`);
   }
 }

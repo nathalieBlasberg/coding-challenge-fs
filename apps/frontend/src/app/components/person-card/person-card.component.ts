@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { StarWarsApiService } from "../../services/star-wars-api.service";
-import { switchMap, take, tap } from "rxjs";
+import { Observable, switchMap, take, tap } from "rxjs";
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -21,17 +21,20 @@ export class PersonCardComponent implements OnInit {
 
   public ngOnInit(): void {
     this.starWarsService
-      .getPerson(this.personData["url"])
+      .getPerson(this.personData["uid"])
       .pipe(
         take(1),
-        switchMap((data) => {
-          this.person = data.result;
-          return this.starWarsService.getPlanet(
-            this.person.properties.homeworld
-          );
-        }),
-        tap((data) => (this.planet = data.result))
+        switchMap((data) => this.getPersonData(data)),
+        tap((data: any) => (this.planet = data.result))
       )
       .subscribe();
+  }
+
+  public getPersonData(data: any): Observable<any> {
+    this.person = data.result;
+    const planet = this.person.properties.homeworld;
+    const matches = planet.match(/\d+$/);
+
+    return this.starWarsService.getPlanet(matches[0]);
   }
 }
