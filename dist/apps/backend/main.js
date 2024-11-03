@@ -199,7 +199,6 @@ let StarWarsService = class StarWarsService {
         this.httpService = httpService;
         this.baseUrl = 'https://www.swapi.tech/api';
         this.limit = 10;
-        this.l = 'https://www.swapi.tech/api/people?page=2&limit=10';
     }
     getData() {
         return { message: 'Hello API' };
