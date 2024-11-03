@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { Output, EventEmitter, Input } from "@angular/core";
+import { Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-header",
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
 
   public onSearchChange(search: string) {
     if (search.match(this.pattern)) {
-      this.newSearchEvent.emit(search);
+      this.newSearchEvent.emit(search.toLowerCase());
     }
   }
 }
