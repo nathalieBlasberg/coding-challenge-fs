@@ -7,7 +7,6 @@ import { People, Person, Planet } from '@coding-challenge/mylib';
 export class StarWarsService {
   private baseUrl = 'https://www.swapi.tech/api';
   private limit = 10;
-  private l = 'https://www.swapi.tech/api/people?page=2&limit=10';
 
   constructor(private readonly httpService: HttpService) {}
 
