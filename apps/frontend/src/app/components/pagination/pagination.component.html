@@ -1,0 +1,8 @@
+<div class="flex justify-between" *ngIf="peopleLength > 0 && searchLength === 0">
+    <button (click)="onPageChange(-1)" [disabled]="pageCount === 1" class="button-absolute left-16">
+      prev
+    </button>
+    <button (click)="onPageChange(1)" [disabled]="pageCount === totalPages" class="button-absolute right-16">
+      Next
+    </button>
+</div>
