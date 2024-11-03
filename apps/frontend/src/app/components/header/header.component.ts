@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   public onSearchChange(search: string) {
     try {
       this.schema.parse(search);
-      this.newSearchEvent.emit(search);
+      this.newSearchEvent.emit(search.toLowerCase());
     } catch (error) {
       this.searchName?.setErrors({ INVALID });
     }
