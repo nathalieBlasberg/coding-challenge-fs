@@ -3,5 +3,11 @@ import { PeopleListComponent } from "./components/people-list/people-list.compon
 
 export const appRoutes: Route[] = [
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: PeopleListComponent },
+  {
+    path: "home",
+    loadChildren: () =>
+      import("./components/people-list/people-list.module").then(
+        (m) => m.PeopleListRoutingModule
+      ),
+  },
 ];

@@ -9,7 +9,7 @@ import { HeaderComponent } from "../header/header.component";
 @Component({
   selector: "app-people-list",
   standalone: true,
-  imports: [CommonModule, PersonCardComponent, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, PersonCardComponent],
   providers: [HttpClient],
   templateUrl: "./people-list.component.html",
   styleUrl: "./people-list.component.css",
