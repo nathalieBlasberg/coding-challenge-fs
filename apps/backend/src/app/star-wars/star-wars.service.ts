@@ -15,12 +15,21 @@ export class StarWarsService {
     return { message: "Hello API" };
   }
 
-  async getPeople(page: number): Promise<AxiosResponse<any>> {
-    const pageQuery = page > 1 ? `?page=${page}&limit=${this.limit}` : "";
+  async getPeople(search: string, page: number): Promise<AxiosResponse<any>> {
+    const searchQuery = search.length > 0 ? `name=${search}` : "";
+    const pageQuery = page > 0 ? `page=${page}&limit=${this.limit}` : "";
+    let query = "/";
+
+    if (search.length > 0) {
+      query = `/?${searchQuery}&${pageQuery}`;
+    }
+
+    if (search.length === 0) {
+      query = `?${pageQuery}`;
+    }
+
     const { data } = await firstValueFrom(
-      this.httpService
-        .get<any>(`${this.baseUrl}/people${pageQuery}`)
-        .pipe(take(1))
+      this.httpService.get<any>(`${this.baseUrl}/people${query}`).pipe(take(1))
     );
     return data;
   }

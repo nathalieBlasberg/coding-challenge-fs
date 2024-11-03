@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Param, Query, UseInterceptors } from "@nestjs/common";
 import { StarWarsService } from "./star-wars.service";
 import { CacheInterceptor } from "@nestjs/cache-manager";
 
@@ -7,9 +7,12 @@ import { CacheInterceptor } from "@nestjs/cache-manager";
 export class StarWarsController {
   constructor(private readonly starWarsService: StarWarsService) {}
 
-  @Get("people/:page")
-  getPeople(@Param("page") page: number) {
-    return this.starWarsService.getPeople(page);
+  @Get("people")
+  getPeople(@Query() query: Record<string, string>) {
+    const search = query["search"] ?? "";
+    const page = parseInt(query["page"]) ?? 0;
+
+    return this.starWarsService.getPeople(search, page);
   }
 
   @Get("person/:id")

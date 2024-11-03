@@ -20,7 +20,6 @@ export class PersonCardComponent implements OnInit {
   constructor(private starWarsService: StarWarsApiService) {}
 
   public ngOnInit(): void {
-    console.log(this.personData);
     this.starWarsService
       .getPerson(this.personData["uid"])
       .pipe(
@@ -35,7 +34,6 @@ export class PersonCardComponent implements OnInit {
   }
 
   public setPersonData(data: any): void {
-    console.log(data);
     this.person = data.result;
   }
 

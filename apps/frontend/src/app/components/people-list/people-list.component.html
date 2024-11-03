@@ -1,13 +1,12 @@
-<app-header></app-header>
-<div class="flex justify-between">
-    <button (click)="switchPage(-1)" [disabled]="pageNumber === 1" class="button-absolute left-16">
-      prev
-    </button>
-    <button (click)="switchPage(1)" [disabled]="pageNumber === totalPages" class="button-absolute right-16">
-      Next
-    </button>
-  </div>
-<div class="grid grid-cols-3 gap-4 mx-60 mt-5">
+<app-header (newSearchEvent)="setSearch($event)"></app-header>
+<app-pagination 
+    [people]="people.length" 
+    [search]="search.length" 
+    [page]="pageNumber" 
+    [total]="totalPages"
+    (newPageEvent)="switchPage($event)">
+</app-pagination>
+<div class="grid grid-cols-3 gap-4 mx-60 mt-5" *ngIf="people.length > 0">
     <div *ngFor="let person of people">
         <app-person-card [personData]="person"></app-person-card>
     </div>

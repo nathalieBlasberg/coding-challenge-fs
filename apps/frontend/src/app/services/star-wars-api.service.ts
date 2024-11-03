@@ -9,12 +9,21 @@ export class StarWarsApiService {
   private readonly http = inject(HttpClient);
   private baseUrl = "/api/star-wars";
 
-  public getPeople(page: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/people/${page}`);
+  public getPeople(search: string, page: number): Observable<any[]> {
+    let query = "";
+
+    if (search.length === 0) {
+      query = `?search=&page=${page}`;
+    }
+
+    if (search.length > 0) {
+      query = `?search=${search}&page=${page}`;
+    }
+
+    return this.http.get<any[]>(`${this.baseUrl}/people${query}`);
   }
 
   public getPerson(id: string): Observable<any> {
-    console.log(id);
     return this.http.get<any>(`${this.baseUrl}/person/${id}`);
   }
 

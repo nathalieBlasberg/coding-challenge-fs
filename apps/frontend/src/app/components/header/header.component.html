@@ -1,3 +1,20 @@
-<div class="flex justify-center mx-auto py-6 border-b border-star-wars-grey-3">
+<div class="flex justify-between content-center mx-auto px-60 py-6 border-b border-star-wars-grey-3">
     <img class="w-48 h-auto" src="/images/sw_logo_stacked.png" alt="star wars logo"/>
+
+    <form class="content-center" [formGroup]="searchForm">   
+        <label for="search" class="mb-2 text-sm font-medium text-white sr-only">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input (ngModelChange)="onSearchChange($event)" formControlName="searchName" type="text" id="search" class="block w-full p-4 ps-10 text-sm text-white border border-white rounded-lg bg-black focus:ring-white focus:border-white" placeholder="Search" />
+        </div>
+        <div *ngIf="!searchName?.valid && (searchName?.dirty || searchName?.touched)">
+            <div class="text-red-600" [hidden]="!searchName?.errors">
+              Only characters are allowed
+            </div>
+        </div>
+    </form>
 </div>

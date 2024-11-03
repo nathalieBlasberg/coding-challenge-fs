@@ -130,7 +130,7 @@ module.exports = require("@nestjs/axios");
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StarWarsController = void 0;
 const tslib_1 = __webpack_require__(4);
@@ -141,8 +141,10 @@ let StarWarsController = class StarWarsController {
     constructor(starWarsService) {
         this.starWarsService = starWarsService;
     }
-    getPeople(page) {
-        return this.starWarsService.getPeople(page);
+    getPeople(query) {
+        const search = query["search"] ?? "";
+        const page = parseInt(query["page"]) ?? 0;
+        return this.starWarsService.getPeople(search, page);
     }
     getPerson(id) {
         return this.starWarsService.getPerson(id);
@@ -153,10 +155,10 @@ let StarWarsController = class StarWarsController {
 };
 exports.StarWarsController = StarWarsController;
 tslib_1.__decorate([
-    (0, common_1.Get)("people/:page"),
-    tslib_1.__param(0, (0, common_1.Param)("page")),
+    (0, common_1.Get)("people"),
+    tslib_1.__param(0, (0, common_1.Query)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Number]),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], StarWarsController.prototype, "getPeople", null);
 tslib_1.__decorate([
@@ -202,11 +204,17 @@ let StarWarsService = class StarWarsService {
     getData() {
         return { message: "Hello API" };
     }
-    async getPeople(page) {
-        const pageQuery = page > 1 ? `?page=${page}&limit=${this.limit}` : "";
-        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService
-            .get(`${this.baseUrl}/people${pageQuery}`)
-            .pipe((0, rxjs_1.take)(1)));
+    async getPeople(search, page) {
+        const searchQuery = search.length > 0 ? `name=${search}` : "";
+        const pageQuery = page > 0 ? `page=${page}&limit=${this.limit}` : "";
+        let query = "/";
+        if (search.length > 0) {
+            query = `/?${searchQuery}&${pageQuery}`;
+        }
+        if (search.length === 0) {
+            query = `?${pageQuery}`;
+        }
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/people${query}`).pipe((0, rxjs_1.take)(1)));
         return data;
     }
     async getPerson(id) {
