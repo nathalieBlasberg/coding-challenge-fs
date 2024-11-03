@@ -5,15 +5,15 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: "app-pagination",
+  selector: 'app-pagination',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./pagination.component.html",
-  styleUrl: "./pagination.component.scss",
+  templateUrl: './pagination.component.html',
+  styleUrl: './pagination.component.scss',
 })
 export class PaginationComponent implements OnChanges {
   @Input() people: number;
@@ -29,21 +29,20 @@ export class PaginationComponent implements OnChanges {
   public totalPages: number;
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    if (changes["people"]) {
-      this.peopleLength = changes["people"].currentValue;
+    if (changes['people']) {
+      this.peopleLength = changes['people'].currentValue;
     }
 
-    if (changes["search"]) {
-      this.searchLength = changes["search"].currentValue;
+    if (changes['search']) {
+      this.searchLength = changes['search'].currentValue;
     }
 
-    if (changes["page"]) {
-      this.pageCount = changes["page"].currentValue;
+    if (changes['page']) {
+      this.pageCount = changes['page'].currentValue;
     }
 
-    if (changes["total"]) {
-      this.totalPages = changes["total"].currentValue;
+    if (changes['total']) {
+      this.totalPages = changes['total'].currentValue;
     }
   }
 

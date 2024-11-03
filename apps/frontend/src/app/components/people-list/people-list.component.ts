@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { StarWarsApiService } from "../../services/star-wars-api.service";
-import { Subject, takeUntil, tap } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { PersonCardComponent } from "../person-card/person-card.component";
-import { HeaderComponent } from "../header/header.component";
-import { PaginationComponent } from "../pagination/pagination.component";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StarWarsApiService } from '../../services/star-wars-api.service';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { HeaderComponent } from '../header/header.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { People, Result } from '@coding-challenge/mylib';
 
 @Component({
-  selector: "app-people-list",
+  selector: 'app-people-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,15 +18,15 @@ import { PaginationComponent } from "../pagination/pagination.component";
     PaginationComponent,
   ],
   providers: [HttpClient],
-  templateUrl: "./people-list.component.html",
+  templateUrl: './people-list.component.html',
 })
 export class PeopleListComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
-  public people: any[] = [];
+  public people: Result[] = [];
   public pageNumber = 1;
   public totalPages = 0;
-  public search = "";
+  public search = '';
 
   constructor(private starWarsService: StarWarsApiService) {}
 
@@ -38,13 +39,13 @@ export class PeopleListComponent implements OnInit, OnDestroy {
       .getPeople(this.search, this.pageNumber)
       .pipe(
         takeUntil(this.onDestroy$),
-        tap((data: any) => this.assignData(data))
+        tap((data: People) => this.assignData(data))
       )
       .subscribe();
   }
 
-  public assignData(data: any): void {
-    this.people = data?.results ?? data.result;
+  public assignData(data: People): void {
+    this.people = data?.results ?? data.result ?? [];
     this.totalPages = data.total_pages;
   }
 
