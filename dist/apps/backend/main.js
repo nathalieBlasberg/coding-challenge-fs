@@ -217,7 +217,6 @@ let StarWarsService = class StarWarsService {
         const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService
             .get(`${this.baseUrl}/people${query}`)
             .pipe((0, rxjs_1.take)(1)));
-        console.log(data);
         return data;
     }
     async getPerson(id) {
