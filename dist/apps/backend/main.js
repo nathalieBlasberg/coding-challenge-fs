@@ -197,24 +197,27 @@ const rxjs_1 = __webpack_require__(11);
 let StarWarsService = class StarWarsService {
     constructor(httpService) {
         this.httpService = httpService;
-        this.baseUrl = "https://www.swapi.tech/api";
+        this.baseUrl = 'https://www.swapi.tech/api';
         this.limit = 10;
-        this.l = "https://www.swapi.tech/api/people?page=2&limit=10";
+        this.l = 'https://www.swapi.tech/api/people?page=2&limit=10';
     }
     getData() {
-        return { message: "Hello API" };
+        return { message: 'Hello API' };
     }
     async getPeople(search, page) {
-        const searchQuery = search.length > 0 ? `name=${search}` : "";
-        const pageQuery = page > 0 ? `page=${page}&limit=${this.limit}` : "";
-        let query = "/";
+        const searchQuery = search.length > 0 ? `name=${search}` : '';
+        const pageQuery = page > 0 ? `page=${page}&limit=${this.limit}` : '';
+        let query = '/';
         if (search.length > 0) {
             query = `/?${searchQuery}&${pageQuery}`;
         }
         if (search.length === 0) {
             query = `?${pageQuery}`;
         }
-        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/people${query}`).pipe((0, rxjs_1.take)(1)));
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService
+            .get(`${this.baseUrl}/people${query}`)
+            .pipe((0, rxjs_1.take)(1)));
+        console.log(data);
         return data;
     }
     async getPerson(id) {
@@ -222,7 +225,9 @@ let StarWarsService = class StarWarsService {
         return data;
     }
     async getPlanet(id) {
-        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(`${this.baseUrl}/planets/${id}`).pipe((0, rxjs_1.take)(1)));
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService
+            .get(`${this.baseUrl}/planets/${id}`)
+            .pipe((0, rxjs_1.take)(1)));
         return data;
     }
 };
