@@ -18,11 +18,7 @@ import { INVALID, z } from 'zod';
 export class HeaderComponent implements OnInit {
   @Output() newSearchEvent = new EventEmitter<string>();
 
-  private pattern = '^[a-zA-Z ]*$';
-  private schema = z
-    .string()
-    .toLowerCase()
-    .refine((search) => search.match(this.pattern));
+  private schema = z.string().toLowerCase();
 
   public searchForm: FormGroup;
 
